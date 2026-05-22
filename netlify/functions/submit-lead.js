@@ -5,6 +5,7 @@ exports.handler = async function(event) {
 
   try {
     const data = JSON.parse(event.body);
+    console.log('Received data:', JSON.stringify(data));
 
     const response = await fetch('https://rest.gohighlevel.com/v1/contacts/', {
       method: 'POST',
@@ -22,6 +23,8 @@ exports.handler = async function(event) {
     });
 
     const result = await response.json();
+    console.log('GHL status:', response.status);
+    console.log('GHL response:', JSON.stringify(result));
 
     return {
       statusCode: 200,
@@ -30,6 +33,7 @@ exports.handler = async function(event) {
     };
 
   } catch (err) {
+    console.log('Error:', err.message);
     return {
       statusCode: 500,
       headers: { 'Access-Control-Allow-Origin': '*' },
